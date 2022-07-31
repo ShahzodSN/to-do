@@ -1,25 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import Raect from "react";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Raect.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      item: "",
+      items: [],
+    };
+
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.submitItem = this.submitItem.bind(this);
+  }
+
+  handleInputChange(event) {
+    let name = event.target.name;
+    let value = event.target.value;
+    this.setState({ [name]: value });
+  }
+
+  submitItem() {
+    let items = this.state.items;
+    let item = this.state.item;
+    items.push(item);
+    this.setState({ items: items });
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <h1>TODO List App</h1>
+        <input
+          type="trxt"
+          name="item"
+          onChange={this.handleInputChange}
+        ></input>
+        <button onClick={this.submitItem}>Submit Item</button>
+
+        {this.state.items.map((item) => {
+          return <p>{item}</p>;
+        })}
+      </div>
+    );
+  }
 }
 
 export default App;
